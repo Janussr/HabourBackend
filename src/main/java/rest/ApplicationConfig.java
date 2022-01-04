@@ -1,5 +1,7 @@
 package rest;
 
+import facades.OwnerFacade;
+
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
@@ -32,7 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(security.RolesAllowedFilter.class);
         resources.add(security.errorhandling.AuthenticationExceptionMapper.class);
         resources.add(security.errorhandling.NotAuthorizedExceptionMapper.class);
-        resources.add(AnimalsResource.class);
+        resources.add(OwnerResource.class);
     }
     
 }
