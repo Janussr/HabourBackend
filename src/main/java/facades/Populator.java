@@ -5,10 +5,12 @@
  */
 package facades;
 
-import dtos.OwnerDTO;
-import dtos.RenameMeDTO;
+import dtos.BoatDTOs.BoatDTO;
+import dtos.OwnerDTOs.OwnerDTO;
+import entities.Boat;
+import entities.Harbour;
 import entities.Owner;
-import entities.RenameMe;
+
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
@@ -25,8 +27,18 @@ public class Populator {
       // fe.create(new RenameMeDTO(new RenameMe("First 3", "Last 3")));
 
         OwnerFacade of = OwnerFacade.getOwnerFacade(emf);
+        BoatFacade bf = BoatFacade.getInstance(emf);
 
-        of.create((new OwnerDTO(new Owner("name","address",42424242 ))));
+        of.create((new OwnerDTO(new Owner("janus","kbh",42424242 ))));
+
+        bf.create(new BoatDTO(new Boat("tesla","Elon","speedy","jpg")));
+
+
+        Boat boat = new Boat("Gump", "Honda", "Shrimping Boat", "google.com");
+
+        Harbour harbour = new Harbour(2);
+
+        boat.setHarbour(harbour);
     }
 
 

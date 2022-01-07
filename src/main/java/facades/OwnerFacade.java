@@ -1,13 +1,13 @@
 package facades;
 
-import dtos.OwnerDTO;
-import dtos.RenameMeDTO;
+import dtos.OwnerDTOs.OwnerDTO;
+import dtos.OwnerDTOs.OwnerDTOs;
 import entities.Owner;
-import entities.RenameMe;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class OwnerFacade {
 
@@ -45,6 +45,21 @@ public class OwnerFacade {
             em.close();
         }
     }
+
+    public OwnerDTOs getAllOwners (){
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Owner> query = em.createQuery("SELECT o FROM Owner o", Owner.class);
+            List<Owner> ownerList = query.getResultList();
+            return new OwnerDTOs(ownerList);
+        } finally {
+            em.close();
+        }
+    }
+
+
+
+
 
 
 

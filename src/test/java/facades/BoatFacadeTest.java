@@ -1,6 +1,10 @@
 package facades;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import dtos.BoatDTOs.BoatDTO;
 import dtos.OwnerDTOs.OwnerDTO;
+import entities.Boat;
 import entities.Owner;
 import utils.EMF_Creator;
 
@@ -13,21 +17,20 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class OwnerFacadeTest {
-
+class BoatFacadeTest {
 
 
     private static EntityManagerFactory emf;
-    private static OwnerFacade facade;
-    private static Owner o1, o2;
+    private static BoatFacade facade;
+    private static Boat b1, b2;
 
-    public OwnerFacadeTest() {
+    public BoatFacadeTest() {
     }
 
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
-        facade = OwnerFacade.getOwnerFacade(emf);
+        facade = BoatFacade.getInstance(emf);
     }
 
     @AfterAll
@@ -40,16 +43,15 @@ class OwnerFacadeTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        o1 = new Owner("damsbo vænge", "Janus", 42424242);
-        o2 = new Owner("Lygnby", "Freddy", 99999999);
 
-
+        b1 = new Boat("FirstBoat","FirstBoat","FirstBoat","FirstBoat");
+        b2 = new Boat("secondBoat","secondBoat","secondBoat","secondBoat");
 
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Owner.deleteAllRows").executeUpdate();
-            em.persist(o1);
-            em.persist(o2);
+            em.createNamedQuery("Boat.deleteAllRows").executeUpdate();
+            em.persist(b1);
+            em.persist(b2);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -64,7 +66,7 @@ class OwnerFacadeTest {
     // TODO: Delete or change this method
     @Test
     public void createOwnerTest() throws Exception {
-        OwnerDTO o3 = facade.create(new OwnerDTO("amager","andreas",11111111));
+        BoatDTO b3 = facade.create(new BoatDTO("ThirdBoat","ThirdBoat","ThirdBoat","ThirdBoat"));
 
         long expected = 3;
         long actual = facade.getCount();
@@ -72,12 +74,5 @@ class OwnerFacadeTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void getAllOwnersTest() throws Exception {
-        long expected = 2;
-        long actual = facade.getAllOwners().getSize();
-
-        assertEquals(expected,actual);
-    }
 
 }

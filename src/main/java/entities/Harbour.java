@@ -27,7 +27,9 @@ public class Harbour {
         this.capacity = capacity;
     }
 
-
+    public Harbour(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

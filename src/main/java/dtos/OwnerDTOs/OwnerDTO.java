@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dtos;
+package dtos.OwnerDTOs;
 
 import entities.Owner;
-import entities.RenameMe;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author tha
- */
+
 public class OwnerDTO {
     private Integer id;
     private String name;
@@ -38,7 +33,7 @@ public class OwnerDTO {
 
     public static List<OwnerDTO> getFromList(List<Owner> courses) {
         return courses.stream()
-                .map(course -> new OwnerDTO(course))
+                .map(owner -> new OwnerDTO(owner))
                 .collect(Collectors.toList());
     }
 

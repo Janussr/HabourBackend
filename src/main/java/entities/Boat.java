@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@NamedQuery(name = "Boat.deleteAllRows", query = "DELETE from Boat")
 public class Boat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +40,21 @@ public class Boat {
         this.name = name;
         this.image = image;
         this.ownerList = ownerList;
+    }
+
+    public Boat(String brand, String make, String name, String image) {
+        this.brand = brand;
+        this.make = make;
+        this.name = name;
+        this.image = image;
+    }
+
+    public Harbour getHarbour() {
+        return harbour;
+    }
+
+    public void setHarbour(Harbour harbour) {
+        this.harbour = harbour;
     }
 
     public List<Owner> getOwnerList() {
