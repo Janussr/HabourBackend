@@ -10,6 +10,7 @@ import entities.Owner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 import java.util.List;
 
 public class BoatFacade {
@@ -57,7 +58,24 @@ public class BoatFacade {
         }
     }
 
+    //delete boat
+    public BoatDTO deleteBoat(int id) throws WebApplicationException {
+        EntityManager em = emf.createEntityManager();
+        Boat boat = em.find(Boat.class, id);
+        if (boat == null) {
+            throw new WebApplicationException("no animal matches the id");
+        } else {
+            try {
+                em.getTransaction().begin();
+                em.remove(boat);
+                em.getTransaction().commit();
 
+                return new BoatDTO(boat);
+            } finally {
+                em.close();
+            }
+        }
+    }
 
     //Used for test (get number of ppl left in DB after delete test)
     public Long getCount() {

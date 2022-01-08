@@ -63,9 +63,8 @@ class BoatFacadeTest {
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method
     @Test
-    public void createOwnerTest() throws Exception {
+    public void createBoatTest() {
         BoatDTO b3 = facade.create(new BoatDTO("ThirdBoat","ThirdBoat","ThirdBoat","ThirdBoat"));
 
         long expected = 3;
@@ -74,5 +73,12 @@ class BoatFacadeTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    public void deleteBoat(){
+    facade.deleteBoat(b1.getId());
+
+    assertEquals(1,facade.getAllBoats().getSize());
+    }
 
 }
