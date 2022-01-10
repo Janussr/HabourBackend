@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import dtos.BoatDTOs.BoatDTO;
 import dtos.OwnerDTOs.OwnerDTO;
 import entities.Boat;
+import entities.Harbour;
 import entities.Owner;
 import utils.EMF_Creator;
 
@@ -19,10 +20,12 @@ import org.junit.jupiter.api.Test;
 
 class BoatFacadeTest {
 
-
     private static EntityManagerFactory emf;
     private static BoatFacade facade;
-    private static Boat b1, b2;
+
+    private static Boat b1, b2, b3;
+    private static Harbour h1, h2;
+    private static Owner o1;
 
     public BoatFacadeTest() {
     }
@@ -44,14 +47,26 @@ class BoatFacadeTest {
     public void setUp() {
         EntityManager em = emf.createEntityManager();
 
-        b1 = new Boat("FirstBoat","FirstBoat","FirstBoat","FirstBoat");
-        b2 = new Boat("secondBoat","secondBoat","secondBoat","secondBoat");
+        h1 = new Harbour("TestNameOne", "TestAddressOne", 50);
+        h2 = new Harbour("TestNameTwo", "TestAddressTwo", 30);
+
+        b1 = new Boat("TestBrandOne", "TestMakeOne", "TestNameOne", "TestImageOne", h1);
+        b2 = new Boat("TestBrandTwo", "TestMakeTwo", "TestNameTwo", "TestImageTwo", h1);
+        b3 = new Boat("TestBrandThree", "TestMakeThree", "TestNameThree", "TestImageThree", h2);
+
+        o1 = new Owner("TestOwner","TestOwnersAddress",42424242);
 
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Boat.deleteAllRows").executeUpdate();
+            em.createQuery("delete from Boat").executeUpdate();
+            em.createQuery("delete from Owner").executeUpdate();
+            em.createQuery("delete from Harbour").executeUpdate();
             em.persist(b1);
             em.persist(b2);
+            em.persist(b3);
+            em.persist(h1);
+            em.persist(h2);
+            em.persist(o1);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -65,7 +80,7 @@ class BoatFacadeTest {
 
     @Test
     public void createBoatTest() {
-        BoatDTO b3 = facade.create(new BoatDTO("ThirdBoat","ThirdBoat","ThirdBoat","ThirdBoat"));
+//        BoatDTO b3 = facade.create(new BoatDTO("ThirdBoat","ThirdBoat","ThirdBoat","ThirdBoat"));
 
         long expected = 3;
         long actual = facade.getCount();
@@ -78,7 +93,12 @@ class BoatFacadeTest {
     public void deleteBoat(){
     facade.deleteBoat(b1.getId());
 
-    assertEquals(1,facade.getAllBoats().getSize());
+    assertEquals(2,facade.getAllBoats().getSize());
+    }
+
+    @Test
+    public void getBoatById() {
+
     }
 
 }

@@ -58,15 +58,28 @@ public class BoatFacade {
         }
     }
 
-    //delete boat
+    //get boat by id to solve US 2.
+    public BoatDTO getById (int id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Boat boat = em.find(Boat.class, id);
+            return new BoatDTO(boat);
+        }finally {
+            em.close();
+        }
+    }
+
+
+    //delete boat Solve us 7
     public BoatDTO deleteBoat(int id) throws WebApplicationException {
         EntityManager em = emf.createEntityManager();
         Boat boat = em.find(Boat.class, id);
         if (boat == null) {
-            throw new WebApplicationException("no animal matches the id");
+            throw new WebApplicationException("no boat matches the id");
         } else {
             try {
                 em.getTransaction().begin();
+                em.createNativeQuery("DELETE FROM BOAT_OWNER WHERE boatList_id = ?").setParameter(1, boat.getId()).executeUpdate();
                 em.remove(boat);
                 em.getTransaction().commit();
 

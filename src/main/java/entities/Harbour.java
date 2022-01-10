@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "Harbour.deleteAllRows", query = "DELETE from Harbour")
 public class Harbour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +21,20 @@ public class Harbour {
     public Harbour() {
     }
 
-    public Harbour(Integer id, String name, String address, int capacity) {
-        this.id = id;
+    public Harbour( String name, String address, int capacity) {
         this.name = name;
         this.address = address;
         this.capacity = capacity;
+    }
+
+
+
+    public List<Boat> getBoatList() {
+        return boatList;
+    }
+
+    public void setBoatList(List<Boat> boatList) {
+        this.boatList = boatList;
     }
 
     public Harbour(Integer id) {

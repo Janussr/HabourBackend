@@ -16,6 +16,7 @@ public class BoatDTOs {
         return counter;
     }
 
+    //making a list of the dto class.
     public BoatDTOs(List<Boat> boats) {
         this.boats = BoatDTO.getFromList(boats);
     }
@@ -28,6 +29,8 @@ public class BoatDTOs {
         this.boats = boats;
     }
 
+
+    //The three methods below are used to compare objects to do unit test and rest assurance test.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

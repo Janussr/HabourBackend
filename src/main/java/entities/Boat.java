@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,29 +18,12 @@ public class Boat {
     private String image;
 
     @ManyToMany
-    List<Owner> ownerList;
+    private List<Owner> ownerList;
 
     @ManyToOne
-    Harbour harbour;
-
+    private Harbour harbour;
 
     public Boat() {
-    }
-
-    public Boat(Integer id, String brand, String make, String name, String image) {
-        this.id = id;
-        this.brand = brand;
-        this.make = make;
-        this.name = name;
-        this.image = image;
-    }
-
-    public Boat(String brand, String make, String name, String image, List<Owner> ownerList) {
-        this.brand = brand;
-        this.make = make;
-        this.name = name;
-        this.image = image;
-        this.ownerList = ownerList;
     }
 
     public Boat(String brand, String make, String name, String image) {
@@ -47,7 +31,20 @@ public class Boat {
         this.make = make;
         this.name = name;
         this.image = image;
+        this.ownerList = new ArrayList<>();
     }
+
+    //This constructor is used in unitTest setup.
+    public Boat(String brand, String make, String name, String image, Harbour harbour) {
+        this.brand = brand;
+        this.make = make;
+        this.name = name;
+        this.image = image;
+        this.ownerList = new ArrayList<>();
+        this.harbour = harbour;
+    }
+
+
 
     public Harbour getHarbour() {
         return harbour;

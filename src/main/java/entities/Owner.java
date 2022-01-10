@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public class Owner {
     private int phone;
 
     @ManyToMany(mappedBy = "ownerList", cascade = CascadeType.PERSIST)
-    List<Boat> boatList;
+    private List<Boat> boatList;
 
     public Owner() {
     }
@@ -25,21 +26,13 @@ public class Owner {
         this.name = name;
         this.address = address;
         this.phone = phone;
+        //need this for US-3
+        this.boatList = new ArrayList<>();
     }
 
-    public Owner(Integer id, String name, String address, int phone) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-    }
 
-    public Owner(String name, String address, int phone, List<Boat> boatList) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.boatList = boatList;
-    }
+
+
 
     public List<Boat> getBoatList() {
         return boatList;
@@ -79,5 +72,13 @@ public class Owner {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    //takes list of boats, adds a boat. takes list of owner, and adds "this?"(the class itself) this method is used in populate.
+    public void addBoat(Boat boat) {
+        if (boat != null) {
+            this.boatList.add(boat);
+            boat.getOwnerList().add(this);
+        }
     }
 }

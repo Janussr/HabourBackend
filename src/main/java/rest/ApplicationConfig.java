@@ -36,6 +36,7 @@ public class ApplicationConfig extends Application {
         resources.add(security.errorhandling.NotAuthorizedExceptionMapper.class);
         resources.add(OwnerResource.class);
         resources.add(BoatResource.class);
+        resources.add(HarbourResource.class);
     }
     
 }

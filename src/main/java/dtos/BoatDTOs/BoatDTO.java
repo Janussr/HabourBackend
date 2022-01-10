@@ -1,6 +1,8 @@
 package dtos.BoatDTOs;
 
+import dtos.Harbour.HarbourDTO;
 import entities.Boat;
+import entities.Harbour;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +13,8 @@ public class BoatDTO {
     private String make;
     private String name;
     private String image;
+    private HarbourDTO harbour;
+
 
 
     public BoatDTO(Boat boat) {
@@ -19,9 +23,11 @@ public class BoatDTO {
         this.make = boat.getMake();
         this.name = boat.getName();
         this.image = boat.getImage();
+        //Use this to get Harbour_Id, to display on the boat on the frontend
+        this.harbour = new HarbourDTO(boat.getHarbour());
     }
 
-    //Can be useful for unit tests.
+    //USED FOR UNIT TESTS
     public BoatDTO(String brand, String make, String name, String image) {
         this.brand = brand;
         this.make = make;
@@ -29,10 +35,19 @@ public class BoatDTO {
         this.image = image;
     }
 
-    public static List<BoatDTO> getFromList(List<Boat> courses) {
-        return courses.stream()
+    //Used to make a list of dto, so we can use it in DTO's class.
+    public static List<BoatDTO> getFromList(List<Boat> boats) {
+        return boats.stream()
                 .map(boat -> new BoatDTO(boat))
                 .collect(Collectors.toList());
+    }
+
+    public HarbourDTO getHarbour() {
+        return harbour;
+    }
+
+    public void setHarbour(HarbourDTO harbour) {
+        this.harbour = harbour;
     }
 
     public Integer getId() {
