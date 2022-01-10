@@ -45,4 +45,11 @@ public class OwnerResource {
         return gson.toJson(facade.getAllOwners());
     }
 
+
+    @Path("/getownerofboat/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getOwnerOfBoat(@PathParam("id")int id){
+    return gson.toJson(facade.getOwnersOfSpecificBoat(id));
+    }
 }

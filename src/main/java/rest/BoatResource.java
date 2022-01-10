@@ -42,6 +42,7 @@ public class BoatResource {
         return gson.toJson(facade.getAllBoats());
     }
 
+
     @Path("/{id}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)

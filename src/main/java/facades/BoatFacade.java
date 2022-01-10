@@ -5,6 +5,7 @@ import dtos.BoatDTOs.BoatDTOs;
 import dtos.OwnerDTOs.OwnerDTO;
 import dtos.OwnerDTOs.OwnerDTOs;
 import entities.Boat;
+import entities.Harbour;
 import entities.Owner;
 
 import javax.persistence.EntityManager;
@@ -32,9 +33,18 @@ public class BoatFacade {
         return emf.createEntityManager();
     }
 
+    //US-4
     public BoatDTO create(BoatDTO boatDTO){
         EntityManager em = emf.createEntityManager();
         Boat boat = new Boat(boatDTO.getBrand(), boatDTO.getImage(),  boatDTO.getMake(), boatDTO.getName());
+
+
+        //Adds the harbour to the boat, when the boat is created.
+        TypedQuery<Harbour> query = em.createQuery("SELECT h FROM Harbour h WHERE h.id =:harbourId", Harbour.class);
+        query.setParameter("harbourId", boatDTO.getHarbour().getId());
+        Harbour harbour = query.getSingleResult();
+        boat.setHarbour(harbour);
+
         try {
             em.getTransaction().begin();
             em.persist(boat);

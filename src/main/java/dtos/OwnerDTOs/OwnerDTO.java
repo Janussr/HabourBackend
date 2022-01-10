@@ -38,9 +38,6 @@ public class OwnerDTO {
     }
 
 
-
-
-
     public Integer getId() {
         return id;
     }

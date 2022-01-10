@@ -1,6 +1,7 @@
 package dtos.BoatDTOs;
 
 import dtos.Harbour.HarbourDTO;
+import dtos.OwnerDTOs.OwnerDTO;
 import entities.Boat;
 import entities.Harbour;
 
@@ -13,6 +14,7 @@ public class BoatDTO {
     private String make;
     private String name;
     private String image;
+    private List<OwnerDTO> owners;
     private HarbourDTO harbour;
 
 
@@ -23,6 +25,7 @@ public class BoatDTO {
         this.make = boat.getMake();
         this.name = boat.getName();
         this.image = boat.getImage();
+        this.owners = OwnerDTO.getFromList(boat.getOwnerList());
         //Use this to get Harbour_Id, to display on the boat on the frontend
         this.harbour = new HarbourDTO(boat.getHarbour());
     }
@@ -40,6 +43,16 @@ public class BoatDTO {
         return boats.stream()
                 .map(boat -> new BoatDTO(boat))
                 .collect(Collectors.toList());
+    }
+
+
+
+    public List<OwnerDTO> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(List<OwnerDTO> owners) {
+        this.owners = owners;
     }
 
     public HarbourDTO getHarbour() {
