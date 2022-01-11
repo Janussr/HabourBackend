@@ -69,7 +69,7 @@ public class BoatFacade {
         }
     }
 
-
+ 
 
     //delete boat Solve us 7
     public BoatDTO deleteBoat(int id) throws WebApplicationException {

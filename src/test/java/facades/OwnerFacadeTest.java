@@ -67,7 +67,7 @@ class OwnerFacadeTest {
         }
 
     }
- 
+
     // TODO: Delete or change this method
     @Test
     public void createOwnerTest() throws Exception {
