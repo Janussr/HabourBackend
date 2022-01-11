@@ -2,6 +2,7 @@ package facades;
 
 import dtos.BoatDTOs.BoatDTO;
 import dtos.BoatDTOs.BoatDTOs;
+import dtos.Harbour.HarbourDTO;
 import dtos.OwnerDTOs.OwnerDTO;
 import dtos.OwnerDTOs.OwnerDTOs;
 import entities.Boat;
@@ -68,16 +69,6 @@ public class BoatFacade {
         }
     }
 
-    //get boat by id to solve US 2.
-    public BoatDTO getById (int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            Boat boat = em.find(Boat.class, id);
-            return new BoatDTO(boat);
-        }finally {
-            em.close();
-        }
-    }
 
 
     //delete boat Solve us 7
@@ -99,6 +90,27 @@ public class BoatFacade {
             }
         }
     }
+
+    // US - 5 connect boat to harbour
+    public BoatDTO connectBoatToHarbour (int boatID, HarbourDTO harbourDTO) {
+        EntityManager em = emf.createEntityManager();
+
+        Boat boat = em.find(Boat.class, boatID);
+        Harbour harbour = em.find(Harbour.class, harbourDTO.getId());
+        boat.setHarbour(harbour);
+
+        try {
+
+           em.getTransaction().begin();
+           em.merge(boat);
+           em.getTransaction().commit();
+
+            return new BoatDTO(boat);
+        } finally {
+            em.close();
+        }
+    }
+
 
     //Used for test (get number of ppl left in DB after delete test)
     public Long getCount() {

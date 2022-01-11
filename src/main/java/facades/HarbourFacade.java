@@ -33,6 +33,8 @@ public class HarbourFacade {
         return emf.createEntityManager();
     }
 
+
+    //US - 2
     public BoatDTOs getAllBoatsInSpecificHarbour( int id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -46,6 +48,8 @@ public class HarbourFacade {
             em.close();
         }
     }
+
+
 
     public HarbourDTOs getAll () {
         EntityManager em = emf.createEntityManager();

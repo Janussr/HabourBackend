@@ -43,11 +43,8 @@ class OwnerFacadeTest {
         o1 = new Owner("damsbo vænge", "Janus", 42424242);
         o2 = new Owner("Lygnby", "Freddy", 99999999);
 
-
-
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Owner.deleteAllRows").executeUpdate();
             em.persist(o1);
             em.persist(o2);
             em.getTransaction().commit();
@@ -58,7 +55,17 @@ class OwnerFacadeTest {
 
     @AfterEach
     public void tearDown() {
-//        Remove any data after each test was run
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("Owner.deleteAllRows").executeUpdate();
+            em.getTransaction().commit();
+
+        }finally {
+            em.close();
+        }
+
     }
 
     // TODO: Delete or change this method

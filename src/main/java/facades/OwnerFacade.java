@@ -31,7 +31,7 @@ public class OwnerFacade {
 
 
 
-
+    //US-4
     public OwnerDTO create(OwnerDTO ownerDTO){
         EntityManager em = emf.createEntityManager();
         Owner owner = new Owner(ownerDTO.getName() , ownerDTO.getAddress(), ownerDTO.getPhone());

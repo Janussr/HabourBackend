@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.BoatDTOs.BoatDTO;
+import dtos.Harbour.HarbourDTO;
 import dtos.OwnerDTOs.OwnerDTO;
 import facades.BoatFacade;
 import facades.OwnerFacade;
@@ -53,6 +54,14 @@ public class BoatResource {
     }
 
 
-
+    @Path("/connect/{boatId}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String connectBoatWithHarbour(@PathParam("boatId")int boatId, String harbour) {
+        HarbourDTO harbourDTO = gson.fromJson(harbour, HarbourDTO.class);
+        BoatDTO connectedBoat = facade.connectBoatToHarbour(boatId,harbourDTO);
+        return gson.toJson(connectedBoat);
+    }
 
 }
