@@ -59,8 +59,8 @@ public class BoatResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String connectBoatWithHarbour(@PathParam("boatId")int boatId, String harbour) {
-        HarbourDTO harbourDTO = gson.fromJson(harbour, HarbourDTO.class);
-        BoatDTO connectedBoat = facade.connectBoatToHarbour(boatId,harbourDTO);
+        Integer harbourId = gson.fromJson(harbour, Integer.class);
+        BoatDTO connectedBoat = facade.connectBoatToHarbour(boatId,harbourId);
         return gson.toJson(connectedBoat);
     }
 

@@ -69,7 +69,7 @@ public class BoatFacade {
         }
     }
 
- 
+
 
     //delete boat Solve us 7
     public BoatDTO deleteBoat(int id) throws WebApplicationException {
@@ -92,11 +92,11 @@ public class BoatFacade {
     }
 
     // US - 5 connect boat to harbour
-    public BoatDTO connectBoatToHarbour (int boatID, HarbourDTO harbourDTO) {
+    public BoatDTO connectBoatToHarbour (int boatID, int harbourId) {
         EntityManager em = emf.createEntityManager();
 
         Boat boat = em.find(Boat.class, boatID);
-        Harbour harbour = em.find(Harbour.class, harbourDTO.getId());
+        Harbour harbour = em.find(Harbour.class, harbourId);
         boat.setHarbour(harbour);
 
         try {
